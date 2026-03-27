@@ -1,0 +1,57 @@
+<div class="detail-page" *ngIf="product as p; else notFound">
+  <a href="#" (click)="goBack($event)" class="back-link">← Назад к товарам</a>
+  <div class="detail-layout">
+    <div class="gallery">
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="p.name" />
+      </div>
+      <div class="thumbnails" *ngIf="p.images && p.images.length > 1">
+        <button
+          *ngFor="let image of p.images"
+          class="thumbnail"
+          [class.active]="image === selectedImage"
+          (click)="selectImage(image)"
+        >
+          <img [src]="image" [alt]="p.name" />
+        </button>
+      </div>
+    </div>
+    <div class="info">
+      <h1 class="name">{{ p.name }}</h1>
+      <div class="rating-row">
+        <div class="stars">
+          <span
+            *ngFor="let star of stars; index as i"
+            class="star"
+            [class.filled]="i < getFilledStars(p.rating)"
+          >
+            ★
+          </span>
+        </div>
+        <span class="rating-value">{{ p.rating }}</span>
+      </div>
+      <div class="price">{{ p.price}} тг</div>
+      <p class="description">{{ p.description }}</p>
+      <div class="actions">
+        <a class="primary-link" [href]="p.link" target="_blank">Открыть на Kaspi.kz</a>
+        <div class="share-group">
+          <button class="share-button" (click)="shareWhatsApp(p)">
+            <img src="/WhatsApp.svg" alt="WhatsApp" />
+            <span>Поделиться в WhatsApp</span>
+          </button>
+          <button class="share-button" (click)="shareTelegram(p)">
+            <img src="/Telegram_2019_Logo.svg" alt="Telegram" />
+            <span>Поделиться в Telegram</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="detail-page">
+    <a href="#" (click)="goBack($event)" class="back-link">← Назад к товарам</a>
+    <p class="not-found">Товар не найден</p>
+  </div>
+</ng-template>

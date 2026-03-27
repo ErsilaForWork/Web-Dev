@@ -1,4 +1,4 @@
-from task2.models import Dog, Cat
+from task2.models import Animal, Dog, Cat
 
 def make_sound_n_times(n, animal):
     animal.make_sound_n_times(n)

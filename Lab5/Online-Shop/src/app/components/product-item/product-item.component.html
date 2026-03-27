@@ -1,0 +1,50 @@
+<div class="product-card" (click)="goToDetails(product().id)">
+  <div class="image-container">
+    @if (product().image) {
+    <img [src]="product().image" [alt]="product().name" class="product-image" />
+    }
+  </div>
+
+  <div class="product-info">
+    <h3 class="product-name">{{ product().name }}</h3>
+
+    <p class="product-description">{{ product().description }}</p>
+
+    <div class="product-rating">
+      @for (star of stars; track star) {
+      @if (star < getFilledStars(product().rating)) {
+      <span class="star filled">★</span>
+      } @else {
+      <span class="star">☆</span>
+      }
+      }
+      <span class="rating-value">{{ product().rating }}</span>
+    </div>
+
+    <div class="product-price">
+      <span class="price">{{ product().price }} ₸</span>
+    </div>
+
+    <div class="product-likes">
+      <span>❤ {{ product().likes }}</span>
+    </div>
+
+    <div class="product-actions">
+      <button (click)="onLike(); $event.stopPropagation()" class="btn btn-like">👍 Like</button>
+      <button (click)="shareWhatsApp($event)" class="btn btn-whatsapp">
+        <img width="30%" height = "30%" src="/WhatsApp.svg" alt="WhatsApp" class="icon" />
+        WhatsApp
+      </button>
+      <button (click)="shareTelegram($event)" class="btn btn-telegram">
+        <img width="30%" height = "30%" src="/Telegram_2019_Logo.svg" alt="Telegram" class="icon" />
+        Telegram
+      </button>
+      <button (click)="onDelete(); $event.stopPropagation()" class="btn btn-delete">🗑️ Delete</button>
+    </div>
+
+    <a [href]="product().link" target="_blank" class="btn btn-shop">
+      Kaspi.kz
+    </a>
+  </div>
+</div>
+

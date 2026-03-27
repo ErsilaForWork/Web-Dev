@@ -1,0 +1,47 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1 class="app-title">{{ title }}</h1>
+    <p class="app-subtitle">Выберите категорию для начала</p>
+  </header>
+
+  <div class="app-layout">
+    <aside class="categories-sidebar">
+      <h2 class="categories-title">Категории</h2>
+      <div class="categories-list">
+        @for (category of categories(); track category.id) {
+        <button
+          class="category-btn"
+          [class.active]="selectedCategoryId() === category.id"
+          (click)="selectCategory(category.id)"
+        >
+          {{ category.name }}
+        </button>
+        }
+      </div>
+    </aside>
+
+    <main class="products-main">
+      @if(!isDetailPage()) {
+        @if (selectedCategoryId() !== null && selectedCategoryProducts().length > 0) {
+        <div class="category-header">
+          <h2>{{ selectedCategory()?.name }}</h2>
+          <span class="product-count">{{ selectedCategoryProducts().length }} товаров</span>
+        </div>
+        <app-product-list [products]="selectedCategoryProducts()" />
+        } @else if (selectedCategoryId() !== null) {
+        <div class="empty-state">
+          <p>Нет товаров в этой категории</p>
+        </div>
+        } @else {
+        <div class="welcome-state">
+          <p>Пожалуйста, выберите категорию слева</p>
+        </div>
+      }
+        }@else {
+          <router-outlet></router-outlet>
+        }
+      
+
+    </main>
+  </div>
+</div>
